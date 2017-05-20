@@ -1,3 +1,4 @@
 local.yml
 .serverless/*
 .idea/*
+test.py
