@@ -33,12 +33,15 @@ def mapper(src_keys, src_bucket):
             # line_count += 1
             data = line.split(',')
             k = data[0]
+            # k, v = srcIp, float(data[3])
             output[k] += 1
 
     return output
 
 
 def handler(event, context):
+    start_time = time.time()
+
     job_bucket = event['job_bucket']
     src_bucket = event['bucket']
     src_keys = event['keys']
@@ -47,8 +50,17 @@ def handler(event, context):
 
     output = mapper(src_keys, src_bucket)
 
-    pret = [len(src_keys)]
+
+    time_in_secs = (time.time() - start_time)
+    #timeTaken = time_in_secs * 1000000000 # in 10^9
+    #s3DownloadTime = 0
+    #totalProcessingTime = 0
+    pret = [len(src_keys), time_in_secs]
     mapper_fname = "{}/{}{}".format(job_id, TASK_MAPPER_PREFIX, mapper_id)
+    # metadata = {
+    #     "processingtime": str(time_in_secs),
+    #     "memoryUsage": '{}'.format(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+    # }
 
     lambdautils.write_to_s3(s3, job_bucket, mapper_fname,
                             json.dumps(output), {})
