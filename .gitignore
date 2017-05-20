@@ -4,3 +4,4 @@ local.yml
 test.py
 jobinfo.json
 config.json
+*.pyc
