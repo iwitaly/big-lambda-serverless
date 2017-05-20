@@ -1,7 +1,5 @@
 import boto3
 import json
-import time
-import resource
 from collections import defaultdict
 import lambdautils
 

@@ -6,4 +6,5 @@ jobinfo.json
 vendored/*
 .idea/
 .serverless/
-vendored/
+config.json
+local.yml
