@@ -1,7 +1,9 @@
-local.yml
-.serverless/*
-.idea/*
+./local.yml
+./config.json
 test.py
 jobinfo.json
-config.json
 *.pyc
+vendored/*
+.idea/
+.serverless/
+vendored/
