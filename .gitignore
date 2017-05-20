@@ -2,3 +2,5 @@ local.yml
 .serverless/*
 .idea/*
 test.py
+jobinfo.json
+config.json
