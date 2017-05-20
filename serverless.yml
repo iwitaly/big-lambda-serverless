@@ -1,0 +1,51 @@
+service: big-lambda
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
+
+provider:
+  name: aws
+  runtime: python2.7
+  region: ${file(./local.yml):aws_region}
+  profile: ${file(./local.yml):aws_profile}
+
+  environment: ${file(./local.yml)}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+          - s3:GetObject
+          - s3:PutObject
+          - s3:ListBucket
+      Resource: ${file(./local.yml):job_bucket_arn}
+
+    - Effect: Allow
+      Action:
+          - s3:GetObject
+          - s3:ListBucket
+      Resource: ${file(./local.yml):data_bucket_arn}
+
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource: ${file(./local.yml):lambda_resource_arn}
+
+
+functions:
+  mapper:
+    memorySize: ${file(./local.yml):lambda_memory}
+    timeout: 60
+    handler: mapper.handler
+
+  reducer:
+    memorySize: ${file(./local.yml):lambda_memory}
+    timeout: 60
+    handler: reducer.handler
+
+  coordinator:
+    handler: coordinator.handler
+    memorySize: ${file(./local.yml):lambda_memory}
+    timeout: 60
+    events:
+      - s3: big-lambda-job-bucket
