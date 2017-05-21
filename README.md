@@ -30,17 +30,18 @@ pip install -r requirements.txt -t vendored
 # Instructions
 
 ## Setup
-I order to make BLS work, you need fill up your credentials in `config.json` and `local.yml`.
-Create `config.json` and `local.yml` in root folder then 
+To make BLS work, you need to fill up your credentials in `config.json` and `local.yml`.
+Create `config.json` and `local.yml` in the root folder then 
 carefully read `examples/config.json` and `examples/local.yml` for config's examples.
 Generally, you need to fill
 * data and job bucket names and ARN's
 * Lambda's names and params (etc. RAM and timeout)
 
-Feel free to copy and paste from examples.
+Feel free to copy and paste from the examples.
 
 The last one, you definitely want to create your own mapper and reducer for your tasks.
-You need to modify `mapper.py` and `reducer.py` with your own logic. 
+
+You need to modify `mapreduce.py` with your own logic. 
 
 Check example of mapper and reducer functions at `example` folder.
 
