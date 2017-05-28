@@ -10,7 +10,7 @@ s3_client = boto3.client('s3')
 lambda_client = boto3.client('lambda')
 
 
-with open('../config.json', "r") as f:
+with open('config.json', "r") as f:
     config = json.load(f)
     JOB_ID = config["job_id"]
     JOB_INFO_KEY = '{}/job_info.json'.format(JOB_ID)

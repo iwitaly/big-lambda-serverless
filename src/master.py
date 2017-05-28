@@ -11,10 +11,10 @@ from src.helpers import lambdautils
 
 logging.basicConfig()
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 
-with open("../local.yml", 'r') as stream:
+with open("local.yml", 'r') as stream:
     config_local = yaml.load(stream)
     AWS_PROFILE = config_local['aws_profile']
     AWS_REGION = config_local['aws_region']
@@ -28,7 +28,7 @@ s3_client = session.client('s3')
 lambda_client = session.client('lambda')
 
 
-with open('../config.json', 'r') as f:
+with open('config.json', 'r') as f:
     config = json.load(f)
 
     JOB_ID = config["job_id"]

@@ -10,7 +10,7 @@ s3_client = boto3.client('s3')
 
 TASK_MAPPER_PREFIX = "task/mapper/"
 
-with open('../config.json', 'r') as f:
+with open('config.json', 'r') as f:
     config = json.load(f)
     MAPPER_CLASS_NAME = config.get('mapper', {}).get('class')
     Mapper = getattr(api.mapper, MAPPER_CLASS_NAME)
