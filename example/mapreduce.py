@@ -1,6 +1,7 @@
-from collections import defaultdict
-from lambdautils import get_object_from_s3
 import json
+from collections import defaultdict
+
+from src.helpers.lambdautils import get_object_from_s3
 
 
 def mapper(s3_client, src_keys, src_bucket):

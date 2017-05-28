@@ -1,7 +1,9 @@
-import boto3
 import json
-import lambdautils
+
+import boto3
+
 from mapreduce import reducer
+from src.helpers import lambdautils
 
 s3 = boto3.resource('s3')
 s3_client = boto3.client('s3')

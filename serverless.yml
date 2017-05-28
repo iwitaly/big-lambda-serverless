@@ -33,18 +33,23 @@ provider:
 
 
 functions:
+  test:
+    memorySize: ${file(./local.yml):lambda_memory}
+    timeout: 60
+    handler: src/test.handler
+
   mapper:
     memorySize: ${file(./local.yml):lambda_memory}
     timeout: 60
-    handler: mapper.handler
+    handler: src/mapper.handler
 
   reducer:
     memorySize: ${file(./local.yml):lambda_memory}
     timeout: 60
-    handler: reducer.handler
+    handler: src/reducer.handler
 
   coordinator:
-    handler: coordinator.handler
+    handler: src/coordinator.handler
     memorySize: ${file(./local.yml):lambda_memory}
     timeout: 60
     events:
