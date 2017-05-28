@@ -29,10 +29,9 @@ def handler(event, context):
     step_id = event['step_id']
     n_reducers = event['n_reducers']
 
-
     reducer_instance = Reducer()
 
-    results = Reducer.run(s3_client, reducer_keys, job_bucket)
+    results = reducer_instance.run(s3_client, reducer_keys, job_bucket)
 
     if n_reducers == 1:
         # Last reducer file, final result
