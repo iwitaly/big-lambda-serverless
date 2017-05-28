@@ -14,7 +14,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-with open("local.yml", 'r') as stream:
+with open("../local.yml", 'r') as stream:
     config_local = yaml.load(stream)
     AWS_PROFILE = config_local['aws_profile']
     AWS_REGION = config_local['aws_region']
@@ -28,7 +28,7 @@ s3_client = session.client('s3')
 lambda_client = session.client('lambda')
 
 
-with open('config.json', 'r') as f:
+with open('../config.json', 'r') as f:
     config = json.load(f)
 
     JOB_ID = config["job_id"]
@@ -122,7 +122,7 @@ def invoke_mappers(n_mappers, batches):
     logger.info("All the mappers finished")
 
 
-def main():
+def run_task():
     all_keys = read_all_keys_from_s3(DATA_BUCKET, KEY_PREFIX)
 
     bsize = lambdautils.compute_batch_size(all_keys, LAMBDA_MEMORY)
@@ -142,7 +142,3 @@ def main():
     invoke_mappers(n_mappers, batches)
 
     logger.info('Driver finished')
-
-
-if __name__ == '__main__':
-    main()

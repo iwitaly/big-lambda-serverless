@@ -33,11 +33,6 @@ provider:
 
 
 functions:
-  test:
-    memorySize: ${file(./local.yml):lambda_memory}
-    timeout: 60
-    handler: src/test.handler
-
   mapper:
     memorySize: ${file(./local.yml):lambda_memory}
     timeout: 60
