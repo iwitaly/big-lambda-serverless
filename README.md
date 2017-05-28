@@ -8,24 +8,34 @@ like [this](https://aws.amazon.com/blogs/big-data/building-scalable-and-responsi
 
 
 # Requirements
-For proper usage of Big Lambda Serverless you must install latest version of [Serverless](https://serverless.com/) framework
-(well, at least 1.8.0).
 
-If you are to lazy to read, just do
+### tl;dr
+Execute following command
+```
+./install_serverless_and_requirements.sh
+```
+
+### Description
+For proper usage of Big Lambda Serverless you must install latest version of [Serverless](https://serverless.com/) framework
+(well, at least 1.8.0)
 ```
 npm install -g serverless
 ```
-to install Serverless globally.
-You also need `npm` to be installed.
-
+to install Serverless globally. You also need `npm` to be installed.
 
 Serverless helps developers to build apps on AWS Lambda. It is really a great framework
 supported by AWS.
 
-Probably, next version will need additional 3rd parties libs, to install them
-```
+Probably, next version will need additional 3rd parties libs, to install them execute
+`
 pip install -r requirements.txt -t vendored
-```
+`
+or simply simply execute.
+If you need additional 3rd parties libs for your implementation of Mapper or Reducer,
+  just write package you need to `requirements.txt` and execute command above to 
+  save this package for AWS Lambda.
+  Nice tutorial about requirements file could be found [here](https://pip.pypa.io/en/stable/reference/pip_install/#requirements-file-format).
+
 
 # Instructions
 
@@ -34,23 +44,28 @@ To make BLS work, you need to fill up your credentials in `config.json` and `loc
 Create `config.json` and `local.yml` in the root folder then 
 carefully read `examples/config.json` and `examples/local.yml` for config's examples.
 Generally, you need to fill
-* data and job bucket names and ARN's
+* Data and job bucket names and ARN's
 * Lambda's names and params (etc. RAM and timeout)
-
-Feel free to copy and paste from the examples.
 
 The last one, you definitely want to create your own mapper and reducer for your tasks.
 
-You need to modify `mapreduce.py` with your own logic. 
+You can find all user's API is under `api` folder.
+You need to write your own mapper and reducer classes.
+Your implementation of these classes is inherited from `Base` class from `api/src/base.py`.
 
-Check example of mapper and reducer functions at `example` folder.
+All internal logic is hidden under `Base` class. Your subclasses just needs to
+1. Redefine global `output` buffer
+2. Redefine `handler` function, to perform processing of the data
+ 
+Probably sounds weired, so please check the examples and `example` folder.
+Feel free to copy and paste from the examples.
+
 
 ## Running
 
-All you need is to deploy Lambdas to your AWS account using command
- ```
- sls deploy
- ```
-After that run `master` program at your computer `python master.py`.
+To run a job on BLS you need to
+1. Deploy Lambda to your AWS account using command `sls deploy`
+2. Run `python run.py` from the root folder
 
-You results will appears at you job bucket.
+Drink a cup of coffee and check your S3 job bucket for `result` 
+file (yeap, it is named result).
